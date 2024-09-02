@@ -5,4 +5,5 @@ This repo contains solutions for our Python course at MDU
 ## Finished weeks
 - Week 1
 - Week 2
-
+- Week 3
+- Week 4
