@@ -56,13 +56,11 @@ def get_number_safe(prompt):
             continue
 
 
-
-
 def prompt_for_action(todos):
     op = input("> ").strip().lower()
 
     if op == "":
-        op = "_" # Phony, will never be reached
+        op = "_"  # Phony, will never be reached
     else:
         op = op[0]
 
