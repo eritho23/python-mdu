@@ -3,11 +3,14 @@
 import os
 import subprocess
 
+
 def ui_bar(length=12):
-    print("-"*length)
+    print("-" * length)
+
 
 def clear_screen():
-    subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
+    subprocess.run("cls" if os.name == "nt" else "clear", shell=True)
+
 
 def print_ui(operations):
     ui_bar()
@@ -16,8 +19,11 @@ def print_ui(operations):
     for op in operations[-3:]:
         print(op)
     ui_bar()
-    print(" add - adds two numbers\n sub - subtracts two numbers\n mul - multiplies two numbers\n div - divides two numbers")
+    print(
+        " add - adds two numbers\n sub - subtracts two numbers\n mul - multiplies two numbers\n div - divides two numbers"
+    )
     ui_bar()
+
 
 def prompt_numbers():
     while True:
@@ -30,6 +36,7 @@ def prompt_numbers():
             ui_bar(3)
             continue
 
+
 def prompt_calculation(operations):
     op = input("> ").strip()
     ui_bar(6)
@@ -41,13 +48,13 @@ def prompt_calculation(operations):
     elif op == "mul":
         operations.append(f" {a} * {b} = {a * b}")
     elif op == "div":
-        if b == 0: # <-- HERE
+        if b == 0:  # <-- HERE
             res = "Infinity"
         else:
             try:
                 res = a / b
             except ZeroDivisionError:
-                print("???") # Should never be reached due to the check above ^^
+                print("???")  # Should never be reached due to the check above ^^
         operations.append(f" {a} / {b} = {res}")
     else:
         print("invalid operation")

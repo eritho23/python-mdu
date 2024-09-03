@@ -1,6 +1,7 @@
 import json
 import os
 
+
 def print_todos(todos):
     for idx, todo in enumerate(todos):
         string_to_print = f"{idx} | "
@@ -11,12 +12,15 @@ def print_todos(todos):
         string_to_print += todo[1]
         print(string_to_print)
 
+
 def load_or_create_todos():
-    path_to_todo_savefile = os.path.join(os.path.dirname(os.path.realpath(__file__)), "todos.json")
+    path_to_todo_savefile = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "todos.json"
+    )
     if os.path.exists(path_to_todo_savefile):
         print(f"attempting to load todos from {path_to_todo_savefile}...", end="")
         try:
-            with open(path_to_todo_savefile, 'r') as fp:
+            with open(path_to_todo_savefile, "r") as fp:
                 loaded = json.load(fp)
                 print("success")
                 return loaded
@@ -27,15 +31,20 @@ def load_or_create_todos():
         print("creating todos in memory, will save on exit")
         return []
 
+
 def dump_todos(todos):
-    path_to_todo_savefile = os.path.join(os.path.dirname(os.path.realpath(__file__)), "todos.json")
+    path_to_todo_savefile = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "todos.json"
+    )
     print(f"saving todos to: {path_to_todo_savefile}...", end="")
-    with open(path_to_todo_savefile, 'w') as fp:
+    with open(path_to_todo_savefile, "w") as fp:
         json.dump(todos, fp)
     print("done")
 
+
 def print_prompt():
     print("(A)dd, (C)heck, (D)elete or (E)xit...")
+
 
 def get_number_safe(prompt):
     while True:
@@ -45,6 +54,7 @@ def get_number_safe(prompt):
         except ValueError:
             print("You need to enter a number")
             continue
+
 
 def prompt_for_action(todos):
     op = input("> ").lower()[0]
@@ -66,7 +76,7 @@ def prompt_for_action(todos):
     elif op == "e":
         dump_todos(todos)
         exit(0)
-    else: 
+    else:
         print("Invalid command")
 
 
@@ -82,5 +92,5 @@ def main():
         exit(0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

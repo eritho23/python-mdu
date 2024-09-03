@@ -1,16 +1,20 @@
 import json
 import os
 
+
 def print_notes(notes):
     for note in notes.keys():
         print(note)
 
+
 def load_or_create_notes():
-    path_to_notes_savefile = os.path.join(os.path.dirname(os.path.realpath(__file__)), "notes.json")
+    path_to_notes_savefile = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "notes.json"
+    )
     if os.path.exists(path_to_notes_savefile):
         print(f"attempting to load notes from {path_to_notes_savefile}...", end="")
         try:
-            with open(path_to_notes_savefile, 'r') as fp:
+            with open(path_to_notes_savefile, "r") as fp:
                 loaded = json.load(fp)
                 print("success")
                 return loaded
@@ -21,15 +25,20 @@ def load_or_create_notes():
         print("creating notes in memory, will save on exit")
         return {}
 
+
 def dump_notes(notes):
-    path_to_notes_savefile = os.path.join(os.path.dirname(os.path.realpath(__file__)), "notes.json")
+    path_to_notes_savefile = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "notes.json"
+    )
     print(f"saving notes to: {path_to_notes_savefile}...", end="")
-    with open(path_to_notes_savefile, 'w') as fp:
+    with open(path_to_notes_savefile, "w") as fp:
         json.dump(notes, fp)
     print("done")
 
+
 def print_prompt():
     print("(V)iew, (A)dd, (R)emove or (E)xit...")
+
 
 def prompt_for_action(notes):
     op = input("> ").lower()[0]
@@ -52,7 +61,7 @@ def prompt_for_action(notes):
     elif op == "e":
         dump_notes(notes)
         exit(0)
-    else: 
+    else:
         print("Invalid command")
 
 
@@ -68,5 +77,5 @@ def main():
         exit(0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

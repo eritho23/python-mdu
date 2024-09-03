@@ -1,4 +1,5 @@
 import statistics
+
 numbers = []
 user_input = input("> ")
 
