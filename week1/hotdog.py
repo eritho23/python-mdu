@@ -7,6 +7,7 @@ try:
     three_vegan_hotdogs = int(input("How many want 3 vegan hotdogs? "))
 except ValueError:
     print("You must enter numbers!!!")
+    exit(1)
 
 drinks = two_hotdogs + three_hotdogs + two_vegan_hotdogs + three_vegan_hotdogs
 drink_cost = round(drinks * 13.95, 2)
