@@ -162,3 +162,4 @@ cython_debug/
 #.idea/
 
 todos.json
+notes.json
