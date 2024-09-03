@@ -41,7 +41,12 @@ def print_prompt():
 
 
 def prompt_for_action(notes):
-    op = input("> ").lower()[0]
+    op = input("> ").strip().lower()
+    if op == "":
+        op = "_"
+    else:
+        op = op[0]
+
     if op == "a":
         item_text = input("Enter the title: ")
         body_text = input("Enter the note: ")

@@ -56,8 +56,16 @@ def get_number_safe(prompt):
             continue
 
 
+
+
 def prompt_for_action(todos):
-    op = input("> ").lower()[0]
+    op = input("> ").strip().lower()
+
+    if op == "":
+        op = "_" # Phony, will never be reached
+    else:
+        op = op[0]
+
     if op == "a":
         item_text = input("Enter the text for the todo: ")
         todos.append([False, item_text])
