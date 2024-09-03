@@ -24,6 +24,7 @@ def load_or_create_todos():
             print("save file corrupt, decide if you keep it or not")
             exit(1)
     else:
+        print("creating todos in memory, will save on exit")
         return []
 
 def dump_todos(todos):
