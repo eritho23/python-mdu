@@ -7,3 +7,4 @@ This repo contains solutions for our Python course at MDU
 - Week 2
 - Week 3
 - Week 4
+- Week 5
