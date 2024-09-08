@@ -22,23 +22,19 @@ celebs = [
     Celeb("Alwin Kjell Urban Forslund", "male", "brown", "blue"),
     Celeb("Jakob Sven Geffen", "female", "brown", "brown"),
     Celeb("Hannes Gingby", "male", "blonde", "blue"),
+    Celeb("Christian Åberg", "male", "unknown", "brown"),
 ]
 
 gender = input("Gender: ")
 hair_color = input("Hair color: ")
 eye_color = input("Eye color: ")
-
 me = Celeb("", gender, hair_color, eye_color)
+
+print("-"*12)
 
 printed = False
 for celeb in celebs:
-    # if not celeb.gender == gender:
-    # continue
-    # if not celeb.hair_color == hair_color:
-    # continue
-    # if not celeb.eye_color == eye_color:
-    # continue
-    if celeb == me:
+    if celeb == me:  # Uses the __eq__ magic method of the class to compare
         printed = True
         print(celeb.name)
 
