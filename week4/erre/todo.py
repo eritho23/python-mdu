@@ -1,6 +1,9 @@
 import json
 import os
+import subprocess
 
+def clear_screen():
+    subprocess.run("cls" if os.name == "nt" else "clear", shell=True)
 
 def print_todos(todos):
     for idx, todo in enumerate(todos):
@@ -72,13 +75,13 @@ def prompt_for_action(todos):
         try:
             todos[idx][0] = True
         except IndexError:
-            print(f"Out of range, index can be maximum {len(todos) - 1}")
+            input(f"Out of range, index can be maximum {len(todos) - 1}, press ENTER to proceed")
     elif op == "d":
         idx = get_number_safe("Enter the index to delete: ")
         try:
             todos.pop(idx)
         except IndexError:
-            print(f"Out of range, index can be maximum {len(todos) - 1}")
+            input(f"Out of range, index can be maximum {len(todos) - 1}, press ENTER to proceed")
     elif op == "e":
         dump_todos(todos)
         exit(0)
@@ -90,6 +93,7 @@ def main():
     todos = load_or_create_todos()
     try:
         while True:
+            clear_screen()
             print_todos(todos)
             print_prompt()
             prompt_for_action(todos)
