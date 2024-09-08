@@ -30,7 +30,7 @@ hair_color = input("Hair color: ")
 eye_color = input("Eye color: ")
 me = Celeb("", gender, hair_color, eye_color)
 
-print("-"*12)
+print("-" * 12)
 
 printed = False
 for celeb in celebs:

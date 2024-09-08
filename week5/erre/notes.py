@@ -2,16 +2,18 @@ import json
 import os
 import subprocess
 
+
 def clear_screen():
     subprocess.run("cls" if os.name == "nt" else "clear", shell=True)
 
+
 def print_notes(notes):
-    print("-"*12)
+    print("-" * 12)
     print("Notes:")
-    print("-"*12)
+    print("-" * 12)
     for note in notes.keys():
         print(note)
-    print("-"*12)
+    print("-" * 12)
 
 
 def load_or_create_notes():
