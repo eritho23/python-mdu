@@ -3,6 +3,8 @@
 import os
 import subprocess
 
+from decimal import Decimal, InvalidOperation
+
 
 def ui_bar(length=12):
     print("-" * length)
@@ -12,26 +14,27 @@ def clear_screen():
     subprocess.run("cls" if os.name == "nt" else "clear", shell=True)
 
 
-def print_ui(operations):
+def print_ui(operations, print_instructions=True):
     ui_bar()
     print("CALCULATOR".center(12))
     ui_bar()
-    for op in operations[-3:]:
+    for op in operations[-3:]:  # Could be replaced by popping the zeroth index
         print(op)
     ui_bar()
-    print(
-        " add - adds two numbers\n sub - subtracts two numbers\n mul - multiplies two numbers\n div - divides two numbers"
-    )
-    ui_bar()
+    if print_instructions:
+        print(
+            " add - adds two numbers\n sub - subtracts two numbers\n mul - multiplies two numbers\n div - divides two numbers"
+        )
+        ui_bar()
 
 
 def prompt_numbers():
     while True:
         try:
-            a = int(input("a = "))
-            b = int(input("b = "))
+            a = Decimal(input("a = "))
+            b = Decimal(input("b = "))
             return (a, b)
-        except ValueError:
+        except InvalidOperation:
             print("You need to enter numbers")
             ui_bar(3)
             continue

@@ -15,7 +15,7 @@ def main():
             prompt_calculation(operations)
         except KeyboardInterrupt:
             clear_screen()
-            print_ui(operations)
+            print_ui(operations, False) # Do NOT print instructions when exiting
             print("exited from SIGINT")
             exit(0)
 
