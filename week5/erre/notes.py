@@ -1,10 +1,17 @@
 import json
 import os
+import subprocess
 
+def clear_screen():
+    subprocess.run("cls" if os.name == "nt" else "clear", shell=True)
 
 def print_notes(notes):
+    print("-"*12)
+    print("Notes:")
+    print("-"*12)
     for note in notes.keys():
         print(note)
+    print("-"*12)
 
 
 def load_or_create_notes():
@@ -54,26 +61,28 @@ def prompt_for_action(notes):
     elif op == "v":
         title = input("Enter note title to view: ")
         if not title in notes:
-            print("No note with specified name found...")
+            input("No note with specified name found...press ENTER to proceed")
         else:
             print(notes[title])
+            input("Press ENTER to return to main UI")
     elif op == "r":
         title = input("Enter the title to delete: ")
         if not title in notes:
-            print("No note with specified name found...")
+            input("No note with specified name found...press ENTER to proceed")
         else:
             notes.pop(title, None)
     elif op == "e":
         dump_notes(notes)
         exit(0)
     else:
-        print("Invalid command")
+        input("Invalid command, press ENTER to proceed")
 
 
 def main():
     notes = load_or_create_notes()
     try:
         while True:
+            clear_screen()
             print_notes(notes)
             print_prompt()
             prompt_for_action(notes)
