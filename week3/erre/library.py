@@ -39,22 +39,23 @@ def prompt_numbers():
 
 def prompt_calculation(operations):
     op = input("> ").strip()
-    ui_bar(6)
-    a, b = prompt_numbers()
-    if op == "add":
-        operations.append(f" {a} + {b} = {a + b}")
-    elif op == "sub":
-        operations.append(f" {a} - {b} = {a - b}")
-    elif op == "mul":
-        operations.append(f" {a} * {b} = {a * b}")
-    elif op == "div":
-        if b == 0:  # <-- HERE
-            res = "Infinity"
-        else:
-            try:
-                res = a / b
-            except ZeroDivisionError:
-                print("???")  # Should never be reached due to the check above ^^
-        operations.append(f" {a} / {b} = {res}")
+    if op in ["add", "sub", "mul", "div"]:
+        ui_bar(6)
+        a, b = prompt_numbers()
+        if op == "add":
+            operations.append(f" {a} + {b} = {a + b}")
+        elif op == "sub":
+            operations.append(f" {a} - {b} = {a - b}")
+        elif op == "mul":
+            operations.append(f" {a} * {b} = {a * b}")
+        elif op == "div":
+            if b == 0:  # <-- HERE
+                res = "Infinity"
+            else:
+                try:
+                    res = a / b
+                except ZeroDivisionError:
+                    print("???")  # Should never be reached due to the check above ^^
+            operations.append(f" {a} / {b} = {res}")
     else:
-        print("invalid operation")
+        input("invalid operation, press enter to proceed")
