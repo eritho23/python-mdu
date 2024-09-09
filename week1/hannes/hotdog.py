@@ -42,5 +42,5 @@ for row in table:
     print(f"{row[0]:<12} {row[1]:<24} {row[2]:<12}")  # :<(spacing) = left-align
 
 ui_line()
-print(f"Total cost: {drink_cost + hotdog_cost + vegan_hotdog_cost}:-")
+print(f"Total cost: {total_cost}:-")
 ui_line()
