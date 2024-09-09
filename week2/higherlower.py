@@ -2,7 +2,7 @@ import random
 
 correct = random.randint(0, 99)
 
-guess = -1  # init to unreachable number
+guess = None
 
 number_of_guesses = 0
 
@@ -13,6 +13,9 @@ while guess != correct:
     except ValueError:
         print("Please enter a number")
         continue
+    except KeyboardInterrupt:
+        print(f"\nExiting game, the number was {correct}...")
+        exit(1)
 
     if guess < correct:
         print("Too low")
