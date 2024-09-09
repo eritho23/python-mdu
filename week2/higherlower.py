@@ -1,6 +1,6 @@
 import random
 
-correct = random.randint(0, 100)
+correct = random.randint(0, 99)
 
 guess = -1  # init to unreachable number
 
