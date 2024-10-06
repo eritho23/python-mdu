@@ -28,10 +28,14 @@ class Game:
         )
 
     def __str__(self):
-        return f"[{self.date} {self.time}] [{self.home_team}-{self.away_team}] {self.home_score}-{self.away_score}"
-    
+        return (
+            f"[{self.home_team}-{self.away_team}] {self.home_score}-{self.away_score}"
+        )
+        # return f"[{self.date} {self.time}] [{self.home_team}-{self.away_team}] {self.home_score}-{self.away_score}"
+
     def total_score(self) -> int:
         return self.home_score + self.away_score
+
 
 def get_seasons() -> list[str]:
     try:
@@ -65,6 +69,7 @@ def iso_from_year_date(year: str, date: str):
     month, day = date.split("/")
     return f"{year}-{month}-{day}"
 
+
 def prompt_number_safe(prompt: str) -> int:
     while True:
         input_data = input(prompt)
@@ -74,6 +79,7 @@ def prompt_number_safe(prompt: str) -> int:
             print("Invalid number")
             continue
         return ret
+
 
 def get_date(season: str, date: str) -> list[Game]:
     games = []
@@ -120,76 +126,97 @@ def get_games(season: str, dates: list[str]) -> dict[list[Game]]:
 
 
 def prompt_season(seasons: list[str]) -> str:
-    user_season = input("Enter season year: ").strip()
+    user_season = str(prompt_number_safe("Enter season year: "))
 
     while not user_season in seasons:
         print("Invalid season")
-        user_season = input("Enter season year: ")
+        user_season = str(prompt_number_safe("Enter season year: "))
 
     return user_season
 
-def user_query(games: dict[list[Game]], total_games: int):
-    print("""
-        Search games, choose an option
-        1 - Query exact standing
-        2 - Query total goal count
-        3 - Query maximum amount of goals
-    """)
 
-    user_choice = prompt_number_safe("Enter your choice (1-3): ")
-    
-    if user_choice == 1: # Query exact game
-        home_score = prompt_number_safe("Enter home score: ")
-        away_score = prompt_number_safe("Enter away score: ")
-        matcher_game = Game(home_score=home_score, away_score=away_score)
-        for date, date_games in games.items():
-            matched = False
-            for date_game in date_games:
-                if date_game == matcher_game: # Check implementation, looks only at scores
-                    if not matched:
-                        print(date)
-                        matched = True
-                    print(date_game)
-            if matched:
-                print()
-    elif user_choice == 2:
-        target_score = prompt_number_safe("Enter the total score: ")
-        for date, date_games in games.items():
-            matched = False
-            for date_game in date_games:
-                if date_game.total_score() == target_score:
-                    if not matched:
-                        print(date)
-                        matched = True
-                    print(date_game)
-            if matched:
-                print()
+def print_ui(year: int):
+    print(
+        f"""
+Search games for season {year}, choose an option
+    1 - Query exact standing
+    2 - Query total goal count
+    3 - Query maximum amount of goals
+    4 - Exit program
+    """
+    )
 
-    elif user_choice == 3:
-        target_score = prompt_number_safe("Enter the upper bound: ")
-        for date, date_games in games.items():
-            matched = False
-            for date_game in date_games:
-                if date_game.total_score() < target_score:
-                    if not matched:
-                        print(date)
-                        matched = True
-                    print(date_game)
-            if matched:
-                print()
-    else:
-        print("Invalid option")
-        exit(1)
+
+def user_query(games: dict[list[Game]], total_games: int, season: int):
+
+    print_ui(season)
+    user_choice = prompt_number_safe("Enter your choice (1-4): ")
+
+    while user_choice != 4:
+        matched_games = 0
+        if user_choice == 1:  # Query exact game
+            home_score = prompt_number_safe("Enter home score: ")
+            away_score = prompt_number_safe("Enter away score: ")
+            matcher_game = Game(home_score=home_score, away_score=away_score)
+            for date, date_games in games.items():
+                matched = False
+                for date_game in date_games:
+                    if (
+                        date_game == matcher_game
+                    ):  # Check implementation, looks only at scores
+                        if not matched:
+                            print(date)
+                            matched = True
+                        print(date_game)
+                        matched_games += 1
+                if matched:
+                    print()
+        elif user_choice == 2:
+            target_score = prompt_number_safe("Enter the total score: ")
+            for date, date_games in games.items():
+                matched = False
+                for date_game in date_games:
+                    if date_game.total_score() == target_score:
+                        if not matched:
+                            print(date)
+                            matched = True
+                        print(date_game)
+                        matched_games += 1
+                if matched:
+                    print()
+
+        elif user_choice == 3:
+            target_score = prompt_number_safe("Enter the upper bound: ")
+            for date, date_games in games.items():
+                matched = False
+                for date_game in date_games:
+                    if date_game.total_score() < target_score:
+                        if not matched:
+                            print(date)
+                            matched = True
+                        print(date_game)
+                        matched_games += 1
+                if matched:
+                    print()
+        else:
+            print("Invalid option")
+
+        percentage = round(100 * (matched_games / total_games), 1)
+        print(f"{matched_games} matched out of {total_games} ({percentage}%)")
+
+        print_ui(season)
+        user_choice = prompt_number_safe("Enter your choice (1-4): ")
+
 
 def main():
     seasons = get_seasons()
     user_season = prompt_season(seasons)
-    print("Loading...", end="")
+    print("Loading...", end="", flush=True)
     dates = get_season_dates(user_season)
     games, total_games = get_games(user_season, dates)
     print("done")
-    
-    user_query(games, total_games)
+
+    user_query(games, total_games, user_season)
 
 
 if __name__ == "__main__":
