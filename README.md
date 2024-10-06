@@ -6,5 +6,6 @@ This repo contains solutions for our Python course at MDU
 - Week 1 **Presented**
 - Week 2 **Presented**
 - Week 3 **Presented**
-- Week 4
-- Week 5
+- Week 4 **Presented**
+- Week 5 **Presented**
+- Week 6
