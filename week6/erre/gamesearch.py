@@ -171,6 +171,7 @@ def user_query(games: dict[list[Game]], total_games: int, season: int):
                         matched_games += 1
                 if matched:
                     print()
+                    
         elif user_choice == 2:
             target_score = prompt_number_safe("Enter the total score: ")
             for date, date_games in games.items():
